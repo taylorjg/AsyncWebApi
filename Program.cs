@@ -13,19 +13,31 @@ namespace AsyncWebApi
 {
     public class Program
     {
+        public static IConfiguration Configuration { get; } =
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+                .Build();
+
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .CreateLogger();
+                            .ReadFrom.Configuration(Configuration)
+                            .Enrich.FromLogContext()
+                            .WriteTo.Console()
+                            .CreateLogger();
 
-            try {
+            try
+            {
                 BuildWebHost(args).Run();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Log.Fatal(ex, "Host terminated unexpectedly");
             }
-            finally {
+            finally
+            {
                 Log.CloseAndFlush();
             }
         }
@@ -34,6 +46,7 @@ namespace AsyncWebApi
             WebHost.CreateDefaultBuilder(args)
                 .UseSerilog()
                 .UseStartup<Startup>()
+                .UseConfiguration(Configuration)
                 .Build();
     }
 }
