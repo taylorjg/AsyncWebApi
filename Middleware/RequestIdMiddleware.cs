@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog.Context;
 
 namespace AsyncWebApi.Middleware
 {
@@ -9,19 +10,21 @@ namespace AsyncWebApi.Middleware
     {
         readonly RequestDelegate _next;
 
-        static int _nextId = 0;
+        static int _nextRequestId = 0;
 
         public RequestIdMiddleware(RequestDelegate next)
         {
             if (next == null) throw new ArgumentNullException(nameof(next));
             _next = next;
         }
-        public async Task Invoke(HttpContext httpContext)
+        
+        public async Task Invoke(HttpContext context)
         {
-            var nextId = Interlocked.Increment(ref _nextId);
-            var formattedNextId = $"{nextId:D8}";
-            httpContext.Items.Add("requestId", formattedNextId);
-            await _next(httpContext);
+            var requestId = $"{Interlocked.Increment(ref _nextRequestId):D8}";
+            using (LogContext.PushProperty("RequestId", requestId))
+            {
+                await _next.Invoke(context);
+            }
         }
     }
 }
