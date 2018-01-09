@@ -12,6 +12,7 @@ namespace AsyncWebApi.Controllers
         [HttpGet()]
         public async Task<IEnumerable<string>> Get()
         {
+            var requestId = (string)HttpContext.Items["requestId"];
             await Task.Delay(2000);
             return new string[] { "value5", "value6" };
         }

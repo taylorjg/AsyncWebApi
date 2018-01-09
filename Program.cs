@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AsyncWebApi
 {
@@ -14,14 +15,25 @@ namespace AsyncWebApi
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            try {
+                BuildWebHost(args).Run();
+            }
+            catch (Exception ex) {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .UseStartup<Startup>()
-                // https://www.codedad.net/2017/08/26/asp-net-core-2-response-logging-2/
-                .ConfigureLogging(builder => builder.AddConsole())
                 .Build();
     }
 }
