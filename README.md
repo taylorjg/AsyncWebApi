@@ -15,6 +15,10 @@ The idea is to observe web server threads handling multiple overlapped requests.
 
 ![Console](Screenshots/console.png)
 
+# TODO
+
+* Use [Gatling](https://gatling.io/) to send a big bunch of load to the endpoint.
+
 # Links
 
 * [HTTP Request & Response Service](http://httpbin.org)
