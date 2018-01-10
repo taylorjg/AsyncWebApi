@@ -11,7 +11,7 @@ When invoked, the action method performs a couple of async operations:
 
 Finally, it returns the number of bytes in the response of the second async operation.
 
-The idea is to observe web server threads handling multiple overlapped requests. To help see this,I have added some logging. I use a middleware class to increment a RequestId for each request received. This is made available to the Serilog LogContext. The Serilog logging also includes the thread id.
+The idea is to observe web server threads handling multiple overlapped requests. To help see this, I have added some logging. I use a middleware class to increment a RequestId for each request received. This is made available to the Serilog LogContext (3rd column). The Serilog logging also includes the thread id (2nd column).
 
 ![Console](Screenshots/console.png)
 
