@@ -21,7 +21,7 @@ namespace AsyncWebApi.Middleware
         public async Task Invoke(HttpContext context)
         {
             var requestId = Interlocked.Increment(ref _nextRequestId);
-            using (LogContext.PushProperty("RequestId", requestId))
+            using (LogContext.PushProperty("MyRequestId", requestId))
             {
                 await _next.Invoke(context);
             }

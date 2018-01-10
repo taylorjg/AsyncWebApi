@@ -38,9 +38,9 @@ namespace AsyncWebApi
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseSerilog()
                 .UseStartup<Startup>()
                 .UseConfiguration(Configuration)
+                .UseSerilog()
                 .Build();
     }
 }
