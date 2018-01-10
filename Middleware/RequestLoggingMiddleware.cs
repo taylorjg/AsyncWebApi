@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace AsyncWebApi.Middleware
 {
-    class SerilogMiddleware
+    class RequestLoggingMiddleware
     {
         const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
 
-        static readonly ILogger Log = Serilog.Log.ForContext<SerilogMiddleware>();
+        static readonly ILogger Log = Serilog.Log.ForContext<RequestLoggingMiddleware>();
 
         readonly RequestDelegate _next;
 
-        public SerilogMiddleware(RequestDelegate next)
+        public RequestLoggingMiddleware(RequestDelegate next)
         {
             if (next == null) throw new ArgumentNullException(nameof(next));
             _next = next;

@@ -16,13 +16,11 @@ namespace AsyncWebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
@@ -31,7 +29,7 @@ namespace AsyncWebApi
             }
 
             app.UseMiddleware<RequestIdMiddleware>();
-            app.UseMiddleware<SerilogMiddleware>();
+            app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseMvc();
         }
     }

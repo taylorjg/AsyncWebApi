@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 
 namespace AsyncWebApi.Controllers
 {
@@ -15,14 +15,22 @@ namespace AsyncWebApi.Controllers
             _logger = logger;
         }
 
+        private const string remoteUrl1 = "http://httpbin.org/delay/1";
+        private const string remoteUrl2 = "http://httpbin.org/bytes/10000";
+
         [HttpGet()]
-        public async Task<IEnumerable<string>> Get()
+        public async Task<int> Get()
         {
-            _logger.LogInformation("Before Task.Delay");
-            await Task.Delay(2000);
-            _logger.LogInformation("After Task.Delay");
+            var httpClient = new HttpClient();
+
+
+            _logger.LogInformation($"Before GET {remoteUrl1}");
+            await httpClient.GetAsync(remoteUrl1);
             
-            return new string[] { "value1", "value2" };
+            _logger.LogInformation($"Before GET {remoteUrl2}");
+            var bytes = await httpClient.GetByteArrayAsync(remoteUrl2);
+            
+            return bytes.GetLength(0);
         }
     }
 }
