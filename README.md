@@ -21,5 +21,5 @@ The idea is to observe web server threads handling multiple overlapped requests.
 
 # Links
 
-* [HTTP Request & Response Service](http://httpbin.org)
+* [httpbin(1): HTTP Request & Response Service](http://httpbin.org)
 * [Enriching Serilog Output with HttpContext Information in ASP.NET Core v1.0](http://mylifeforthecode.com/enriching-serilog-output-with-httpcontext-information-in-asp-net-core/)
