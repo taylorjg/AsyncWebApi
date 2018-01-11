@@ -23,7 +23,6 @@ namespace AsyncWebApi.Controllers
         {
             var httpClient = new HttpClient();
 
-
             _logger.LogInformation($"Before GET {remoteUrl1}");
             await httpClient.GetAsync(remoteUrl1);
             
