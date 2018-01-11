@@ -18,9 +18,13 @@ The idea is to observe web server threads handling multiple overlapped requests.
 In the above screenshot, about half way down, we can see that
 during the interval 19:20:11.310 to 19:20:11.373, thread 18 contributes to the processing of three different requests (00000002, 00000003 and 00000004). Looking at it another way, we can see that request 00000002 starts off on thread 17 at 19:20:09.861, then hops to thread 18 at 19:20:11.310 and ends up on thread 19 at 19:20:11.504.
 
-# TODO
+# Load Test
 
-* ~~Use [Gatling](https://gatling.io/) to send a big bunch of load to the endpoint.~~
+* Download [Gatling](https://gatling.io/) from the [zip bundle](https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/2.3.0/gatling-charts-highcharts-bundle-2.3.0-bundle.zip)
+* Extract the zip bundle
+* Set `GATLING_HOME` to the directory where the zip bundle was extracted
+* Run the load test:
+    * `./gatling/run.sh`
 
 # Links
 
