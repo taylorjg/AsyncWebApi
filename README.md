@@ -20,7 +20,7 @@ during the interval 19:20:11.310 to 19:20:11.373, thread 18 contributes to the p
 
 # TODO
 
-* Use [Gatling](https://gatling.io/) to send a big bunch of load to the endpoint.
+* ~~Use [Gatling](https://gatling.io/) to send a big bunch of load to the endpoint.~~
 
 # Links
 
