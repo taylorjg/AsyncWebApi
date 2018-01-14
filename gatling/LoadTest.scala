@@ -8,7 +8,7 @@ class LoadTest extends Simulation {
 
   private val httpConf = http.baseURL("http://localhost:5000")
 
-  val scn = scenario("LoadTest")
+  private val scn = scenario("LoadTest")
     .exec(http("GET /api/async")
     .get("/api/async"))
 
